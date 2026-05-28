@@ -26,18 +26,27 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   void login() {
-    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+    if (emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty) {
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
+        ),
       );
+
     } else {
+
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter email and password')),
+        const SnackBar(
+          content: Text('Please enter email and password'),
+        ),
       );
     }
   }
@@ -45,24 +54,35 @@ class _LoginScreenState extends State<LoginScreen> {
   void goToRegister() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => const RegisterScreen()),
+      MaterialPageRoute(
+        builder: (_) => const RegisterScreen(),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(24),
+
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+
             children: [
+
               const Text(
                 'AKPay',
-                style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+
               const SizedBox(height: 30),
+
               TextField(
                 controller: emailController,
                 decoration: const InputDecoration(
@@ -70,7 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
+
               const SizedBox(height: 15),
+
               TextField(
                 controller: passwordController,
                 obscureText: true,
@@ -79,15 +101,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
+
               const SizedBox(height: 20),
+
               ElevatedButton(
                 onPressed: login,
                 child: const Text('Login'),
               ),
+
               TextButton(
                 onPressed: goToRegister,
                 child: const Text('Create account'),
               ),
+
             ],
           ),
         ),
@@ -101,33 +127,69 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final nameController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
 
     void register() {
+
       if (nameController.text.isNotEmpty &&
           emailController.text.isNotEmpty &&
           passwordController.text.isNotEmpty) {
+
         Navigator.pop(context);
+
       } else {
+
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please fill all fields')),
+          const SnackBar(
+            content: Text('Please fill all fields'),
+          ),
         );
       }
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Register')),
+      appBar: AppBar(
+        title: const Text('Register'),
+      ),
+
       body: Padding(
         padding: const EdgeInsets.all(24),
+
         child: Column(
           children: [
-            TextField(controller: nameController, decoration: const InputDecoration(labelText: 'Full Name')),
-            TextField(controller: emailController, decoration: const InputDecoration(labelText: 'Email')),
-            TextField(controller: passwordController, obscureText: true, decoration: const InputDecoration(labelText: 'Password')),
+
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                labelText: 'Full Name',
+              ),
+            ),
+
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email',
+              ),
+            ),
+
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+              ),
+            ),
+
             const SizedBox(height: 20),
-            ElevatedButton(onPressed: register, child: const Text('Register')),
+
+            ElevatedButton(
+              onPressed: register,
+              child: const Text('Register'),
+            ),
+
           ],
         ),
       ),
@@ -140,6 +202,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final transactions = [
       'Sent \$50 to John',
       'Received \$120 from Maria',
@@ -149,39 +212,73 @@ class HomeScreen extends StatelessWidget {
     void logout() {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
+        MaterialPageRoute(
+          builder: (_) => const LoginScreen(),
+        ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('AKPay Wallet'),
+
         actions: [
-          IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
+          IconButton(
+            onPressed: logout,
+            icon: const Icon(Icons.logout),
+          ),
         ],
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(24),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
-            const Text('Wallet Balance', style: TextStyle(fontSize: 18)),
+
+            const Text(
+              'Wallet Balance',
+              style: TextStyle(fontSize: 18),
+            ),
+
             const SizedBox(height: 8),
+
             const Text(
               '\$1,250.75',
-              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+
             const SizedBox(height: 24),
+
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const SendMoneyScreen(),
+                  ),
+                );
+              },
               child: const Text('Send Money'),
             ),
+
             const SizedBox(height: 24),
+
             const Text(
               'Recent Transactions',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+
             const SizedBox(height: 12),
+
             ...transactions.map(
               (transaction) => Card(
                 child: ListTile(
@@ -190,6 +287,111 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SendMoneyScreen extends StatefulWidget {
+  const SendMoneyScreen({super.key});
+
+  @override
+  State<SendMoneyScreen> createState() =>
+      _SendMoneyScreenState();
+}
+
+class _SendMoneyScreenState
+    extends State<SendMoneyScreen> {
+
+  final receiverController =
+      TextEditingController();
+
+  final amountController =
+      TextEditingController();
+
+  final noteController =
+      TextEditingController();
+
+  void sendMoney() {
+
+    if (receiverController.text.isEmpty ||
+        amountController.text.isEmpty) {
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Please enter receiver and amount',
+          ),
+        ),
+      );
+
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Money sent successfully!',
+        ),
+      ),
+    );
+
+    Navigator.pop(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Send Money'),
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+
+        child: Column(
+          children: [
+
+            TextField(
+              controller: receiverController,
+              decoration: const InputDecoration(
+                labelText: 'Receiver',
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            TextField(
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'Amount',
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            TextField(
+              controller: noteController,
+              decoration: const InputDecoration(
+                labelText: 'Note',
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: sendMoney,
+              child: const Text('Send'),
+            ),
+
           ],
         ),
       ),
