@@ -140,6 +140,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final transactions = [
+      'Sent \$50 to John',
+      'Received \$120 from Maria',
+      'Paid \$25 for groceries',
+    ];
+
     void logout() {
       Navigator.pushReplacement(
         context,
@@ -154,10 +160,37 @@ class HomeScreen extends StatelessWidget {
           IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
         ],
       ),
-      body: const Center(
-        child: Text(
-          'Login Successful ✅',
-          style: TextStyle(fontSize: 24),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Wallet Balance', style: TextStyle(fontSize: 18)),
+            const SizedBox(height: 8),
+            const Text(
+              '\$1,250.75',
+              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Send Money'),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Recent Transactions',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            ...transactions.map(
+              (transaction) => Card(
+                child: ListTile(
+                  leading: const Icon(Icons.payment),
+                  title: Text(transaction),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
